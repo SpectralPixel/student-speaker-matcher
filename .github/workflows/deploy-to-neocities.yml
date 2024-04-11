@@ -9,12 +9,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - if: ${{ success() && github.ref == 'main'}}
-        name: Compile Website
-        run: make
+      - run: make
 
-      - if: ${{ success() && github.ref == 'main'}}
-        name: Deploy to Neocities
+      - if: ${{ success() && github.ref == 'refs/heads/deployed' }}
         id: deploy
         continue-on-error: true
         uses: bcomnes/deploy-to-neocities@v1
@@ -23,7 +20,7 @@ jobs:
           dist_dir: _site
           cleanup: true
 
-      - name: Deploy to Neocities (fallback)
+      - name: Deploy to Neocities fallback
         if: ${{ steps.deploy.outcome == 'failure' && github.ref == 'refs/heads/deployed' }}
         uses: jonchang/deploy-neocities@master
         with:
