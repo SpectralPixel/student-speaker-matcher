@@ -1,6 +1,9 @@
 name: Deploy Site
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - "main"
 
 jobs:
   build:
@@ -10,8 +13,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: make
+        id: compile
+        name: Run Makefile (copy site all/only the listed site components)
 
-      - if: ${{ success() && github.ref == 'main' }}
+      - if: ${{ steps.compile.outcome == 'success' }}
         id: deploy
         continue-on-error: true
         uses: bcomnes/deploy-to-neocities@v1
@@ -21,7 +26,7 @@ jobs:
           cleanup: true
 
       - name: Deploy to Neocities fallback
-        if: ${{ steps.deploy.outcome == 'failure' && github.ref == 'main' }}
+        if: ${{ steps.deploy.outcome == 'failure' }}
         uses: jonchang/deploy-neocities@master
         with:
           key: ${{ secrets.NEOCITIES_API_KEY }}
