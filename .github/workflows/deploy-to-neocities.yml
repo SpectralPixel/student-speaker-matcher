@@ -9,11 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - if: ${{ success() && github.ref == 'refs/heads/deployed' }}
+      - if: ${{ success() && github.ref == 'main'}}
         name: Compile Website
         run: make
 
-      - if: ${{ success() && github.ref == 'refs/heads/deployed' }}
+      - if: ${{ success() && github.ref == 'main'}}
         name: Deploy to Neocities
         id: deploy
         continue-on-error: true
