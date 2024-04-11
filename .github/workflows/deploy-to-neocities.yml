@@ -11,7 +11,7 @@ jobs:
 
       - run: make
 
-      - if: ${{ success() && github.ref == 'refs/heads/deployed' }}
+      - if: ${{ success() && github.ref == 'main' }}
         id: deploy
         continue-on-error: true
         uses: bcomnes/deploy-to-neocities@v1
@@ -21,7 +21,7 @@ jobs:
           cleanup: true
 
       - name: Deploy to Neocities fallback
-        if: ${{ steps.deploy.outcome == 'failure' && github.ref == 'refs/heads/deployed' }}
+        if: ${{ steps.deploy.outcome == 'failure' && github.ref == 'main' }}
         uses: jonchang/deploy-neocities@master
         with:
           key: ${{ secrets.NEOCITIES_API_KEY }}
