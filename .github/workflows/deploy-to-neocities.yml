@@ -16,8 +16,7 @@ jobs:
         id: compile
         name: Run Makefile (copy site all/only the listed site components)
 
-      - if: ${{ steps.compile.outcome == 'success' }}
-        id: deploy
+      - id: deploy
         continue-on-error: true
         uses: bcomnes/deploy-to-neocities@v1
         with:
