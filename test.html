@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speaker Recommendation</title>
+    <style>
+        .container {
+            margin: 20px;
+            padding: 20px;
+        }
+        textarea {
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Speaker Recommendation System</h2>
+    <label for="speakers">Enter Available Speakers (one per line):</label><br>
+    <textarea id="speakers"></textarea><br><br>
+    <label for="studentChoices">Enter Student Choices (one per line):</label><br>
+    <textarea id="studentChoices"></textarea><br><br>
+    <button onclick="setResponseOnPage()">Get Recommendation</button><br><br>
+    <label>Recommended Speaker:</label>
+    <p id="response-field"></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

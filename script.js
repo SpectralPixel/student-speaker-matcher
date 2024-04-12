@@ -1,6 +1,7 @@
 async function getAvailableSpeakers() {
     let speakers = [];
-    document.getElementById("speakers").children.forEach(child => {
+    const speakerElements = document.getElementById("speakers").children;
+    Array.from(speakerElements).forEach(child => {
         speakers.push(child.textContent);
     });
     return speakers;
@@ -8,7 +9,8 @@ async function getAvailableSpeakers() {
 
 async function getStudentChoices() {
     let studentChoices = [];
-    document.getElementById("studentChoices").children.forEach(child => {
+    const choiceElements = document.getElementById("studentChoices").children;
+    Array.from(choiceElements).forEach(child => {
         studentChoices.push(child.textContent);
     });
     return studentChoices;
@@ -50,7 +52,18 @@ async function askGPTForRecommendation() {
     });
 
     const responseData = await response.json();
-    const recommendedSpeaker = responseData.choices[0].message.content.trim();
+    // Log the response data to the console
+    console.log(responseData);
+
+    // Check if choices is present in the response
+    if (responseData.choices && responseData.choices.length > 0) {
+        const recommendedSpeaker = responseData.choices[0].message.content.trim();
+        return recommendedSpeaker;
+    } else {
+        // Handle the case where choices is not present in the response
+        console.error("No choices found in response");
+        return "Error: No choices found in response";
+    }
 
     return recommendedSpeaker;
 }
