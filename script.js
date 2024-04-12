@@ -1,5 +1,27 @@
 var openAIKey = "none";
 
+    window.onload = function() {
+    var openAIKeyInput = document.getElementById('openAIKey');
+    var setKeyButton = document.querySelector('button');
+
+    function updateButtonColor() {
+    if (openAIKeyInput.value.length < 50) {
+    setKeyButton.style.backgroundColor = '#d73a49'; // Red color when less than 50 chars
+    setKeyButton.style.borderColor = '#cb2431';
+} else {
+    setKeyButton.style.backgroundColor = '#238636'; // Original green color
+    setKeyButton.style.borderColor = '#2ea043';
+}
+}
+
+    // Initial check on page load
+    updateButtonColor();
+
+    // Attach event handler using traditional 'oninput' for older style
+    openAIKeyInput.oninput = updateButtonColor;
+};
+
+
 async function setKey() {
     if (document.getElementById("openAIKey").value === "") {
         alert("Please enter the OpenAI API key");
