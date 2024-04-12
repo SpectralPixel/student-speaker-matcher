@@ -1,35 +1,38 @@
+var openAIKey = "none";
+
+async function setKey() {
+    if (document.getElementById("openAIKey").value === "") {
+        alert("Please enter the OpenAI API key");
+        return;
+    }
+    this.openAIKey = document.getElementById("openAIKey").value;
+}
 async function getAvailableSpeakers() {
-    let speakers = [];
-    const speakerElements = document.getElementById("speakers").children;
-    Array.from(speakerElements).forEach(child => {
-        speakers.push(child.textContent);
-    });
-    return speakers;
+    let speakers = document.getElementById("speakers").value;
+    return speakers.split('\n').map(speaker => speaker.trim()); // split by new lines and trim each line
 }
 
 async function getStudentChoices() {
-    let studentChoices = [];
-    const choiceElements = document.getElementById("studentChoices").children;
-    Array.from(choiceElements).forEach(child => {
-        studentChoices.push(child.textContent);
-    });
-    return studentChoices;
+    let studentChoices = document.getElementById("studentChoices").value;
+    return studentChoices.split('\n').map(choice => choice.trim()); // split by new lines and trim each line
 }
 
 async function askGPTForRecommendation() {
-    const OPENAI_API_KEY = "classified";
+    const OPENAI_API_KEY = this.openAIKey;
     const speakers = await getAvailableSpeakers();
     const speakerBlock = speakers.join('\n');
     const studentChoices = await getStudentChoices();
     const studentChoicesBlock = studentChoices.join('\n');
+    console.log(speakerBlock);
+    console.log(studentChoicesBlock);
     const query = `Available speakers -> \n${speakerBlock}\nStudent's favourite classes -> \n${studentChoicesBlock}`;
-    const systemMessage = "\nWhich speaker should the student see based on their interests, answer in only one word with the exact speaker name.";
+    const systemMessage = "The student needs a recommendation for a speaker. Please provide a one-word answer, selecting from the list of available speakers based on the student's interests.";
     const message = {
-        model: "gpt-3.5-turbo",
+        model: "gpt-4-0125-preview",
         messages: [
             {
                 role: "system",
-                content: "You are a helpful assistant."
+                content: systemMessage
             },
             {
                 role: "user",
@@ -37,10 +40,13 @@ async function askGPTForRecommendation() {
             },
             {
                 role: "system",
-                content: systemMessage
+                content: "Which speaker should the student see based on the...th the exact speaker from the Speaker_Data block."
             }
-        ]
+        ],
+        temperature: 0.01
     };
+
+    console.log(message);
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
