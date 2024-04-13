@@ -7,3 +7,4 @@ site: index.html
 	mkdir _site/Images
 	cp -r Images _site/Images
 	cp script.js _site/script.js
+	cp headers _site/_headers
