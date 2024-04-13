@@ -6,5 +6,5 @@ site: index.html
 	cp style.css _site/style.css
 	mkdir _site/Images
 	cp -r Images _site/Images
-	cp script.js _site/script.js
+	cp js/script.js _site/script.js
 	cp headers _site/_headers
