@@ -16,7 +16,7 @@ Our solution to this problem was lazy, yet valid. If it can do it's job, it's a 
 
 ## Division of labour
 
-@EncryptedDvjjrxv: coordination, GitHub repo management & automation
-@peselis: back-end (js for querying ChatGPT), server, worked on front-end too
-@Makki3608: in charge of front-end (HTML, CSS, UI/UX)
+- @EncryptedDvjjrxv: coordination, GitHub repo management & automation
+- @peselis: back-end (js for querying ChatGPT), server, worked on front-end too
+- @Makki3608: in charge of front-end (HTML, CSS, UI/UX)
 
